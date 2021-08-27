@@ -123,5 +123,5 @@ lgcmsr_log = as.data.frame(bind_rows(fit_list))
 lgcmsr_log[ , c(2, 4:14)] = as.numeric(unlist(lgcmsr_log[ , c(2, 4:14)]))
 
 #save files ----
-write.csv(lgcmsr_log, "3_log_lgcmsr.csv") #save model fitting log
-write.csv(lgcmsr_data, "3_conditions_lgcmsr.csv") #save conditions data frame
+write.csv(clpm_log, file.path(here("simulations") ,"3_log_lgcmsr.csv")) #save model fitting log
+write.csv(clpm_data, file.path(here("simulations") , "3_conditions_lgcmsr.csv")) #save conditions data frame

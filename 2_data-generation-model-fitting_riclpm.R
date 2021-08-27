@@ -116,5 +116,5 @@ riclpm_log = as.data.frame(bind_rows(fit_list))
 riclpm_log[ , c(2, 4:14)] = as.numeric(unlist(riclpm_log[ , c(2, 4:14)])) 
 
 #save files ----
-write.csv(riclpm_log, "1_log_riclpm.csv") #save model fitting log
-write.csv(riclpm_data, "1_conditions_riclpm.csv") #save conditions data frame
+write.csv(clpm_log, file.path(here("simulations") ,"2_log_riclpm.csv")) #save model fitting log
+write.csv(clpm_data, file.path(here("simulations") , "2_conditions_riclpm.csv")) #save conditions data frame

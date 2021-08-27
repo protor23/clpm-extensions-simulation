@@ -111,5 +111,5 @@ clpm_log = as.data.frame(bind_rows(fit_list))
 clpm_log[ , c(2, 4:14)] = as.numeric(unlist(clpm_log[ , c(2, 4:14)])) 
 
 #save files ----
-write.csv(clpm_log, "1_log_clpm.csv") #save model fitting log
-write.csv(clpm_data, "1_conditions_clpm.csv") #save conditions data frame
+write.csv(clpm_log, file.path(here("simulations") ,"1_log_clpm.csv")) #save model fitting log
+write.csv(clpm_data, file.path(here("simulations") , "1_conditions_clpm.csv")) #save conditions data frame
