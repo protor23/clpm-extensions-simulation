@@ -6,8 +6,8 @@ library(ggplot2)
 #lgcmsr ----
 
 #load dataframes
-lgcmsr_log = read.csv(here("3_log_lgcmsr.csv"))
-lgcmsr_data = read.csv(here("3_conditions_lgcmsr.csv"))
+lgcmsr_log = read.csv(file.path(here("simulations") ,"3_log_lgcmsr.csv"))
+lgcmsr_data = read.csv(file.path(here("simulations") ,"3_conditions_lgcmsr.csv"))
 
 #convergence and improper solutions
 lgcmsr_sol = lgcmsr_log %>%
@@ -47,11 +47,24 @@ lgcmsr_ci = lgcmsr_log %>%
   summarize(Nxy = sum(CLxy_in_ci),
             Nyx = sum(CLyx_in_ci)) #frequency of cases in which CI includes the true parameter
 
+#substantive conclusions re causal dominance - WTF
+lgcmsr_conc = lgcmsr_log %>%
+  filter(warning == "W: ") %>% #base calculations only on admissible solutions
+  group_by(model) %>%
+  left_join(lgcmsr_data[ , c("CLxy", "ARx", "ARy", "index")], 
+            by = c("sample" = "index")) %>%
+  mutate(dom_true = ifelse(CLxy.y == 0.08, "non-dominance", "dominance"),
+         dom_est = ifelse(abs(CLxy.x) < abs(CLyx) + 0.02 && abs(CLxy.x) > abs(CLyx) - 0.02, "non-dominance",
+                          ifelse(abs(CLxy.x) >= abs(CLyx) + 0.02, "dominance", "reversed dominance"))) %>%
+  summarise(dom = sum(dom_true == dom_est))
+
+lgcmsr_conc
+
 #riclpm ----
 
-#load log dataframe
-riclpm_log = read.csv(here("2_log_riclpm.csv"))
-riclpm_data = read.csv(here("2_conditions_riclpm.csv"))
+#load dataframes
+riclpm_log = read.csv(file.path(here("simulations") ,"2_log_riclpm.csv"))
+riclpm_data = read.csv(file.path(here("simulations") ,"2_conditions_riclpm.csv"))
 
 #convergence and improper solutions
 riclpm_sol = riclpm_log %>%
@@ -91,11 +104,13 @@ riclpm_ci = riclpm_log %>%
   summarize(Nxy = sum(CLxy_in_ci),
             Nyx = sum(CLyx_in_ci))
 
+#substantive conclusions re causal dominance - WTF AGAIN
+
 #clpm ----
 
 #load dataframes
-clpm_log = read.csv(here("1_log_clpm.csv"))
-clpm_data = read.csv(here("1_conditions_clpm.csv"))
+clpm_log = read.csv(file.path(here("simulations") ,"1_log_clpm.csv"))
+clpm_data = read.csv(file.path(here("simulations") ,"1_conditions_clpm.csv"))
 
 #convergence and improper solutions
 clpm_sol = clpm_log %>%
