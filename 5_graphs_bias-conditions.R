@@ -299,8 +299,8 @@ plot_list = list(
          aes(x = dom, y = bCLxy, group = model, colour = model)) +
     geom_line() + 
     geom_point() +
-    scale_y_continuous(limits = c(-0.6, 0.6),
-                       breaks = seq(-0.6, 0.6, 0.1),
+    scale_y_continuous(limits = c(-1.5, 1.5),
+                       breaks = seq(-1.5, 1.5, 0.3),
                        labels = scales::number_format(accuracy = 0.01)) +
     scale_x_discrete(expand = c(-0.8, 1)) +
     ggtitle("\nBias in CLxy (LGCMSR Data) by Dominance Condition") +
@@ -322,8 +322,8 @@ plot_list = list(
          aes(x = dom, y = bCLyx, group = model, colour = model)) +
     geom_line() + 
     geom_point() +
-    scale_y_continuous(limits = c(-0.6, 0.6),
-                       breaks = seq(-0.6, 0.6, 0.1),
+    scale_y_continuous(limits = c(-1.5, 1.5),
+                       breaks = seq(-1.5, 1.5, 0.3),
                        labels = scales::number_format(accuracy = 0.01)) +
     scale_x_discrete(expand = c(-0.8, 1)) +
     ggtitle("\nBias in CLyx (LGCMSR Data) by Dominance Condition") +
@@ -360,8 +360,8 @@ plot_list = list(
     geom_line() + 
     geom_point() +
     facet_grid(~slp_cov) +
-    scale_y_continuous(limits = c(-0.6, 0.6),
-                       breaks = seq(-0.6, 0.6, 0.1),
+    scale_y_continuous(limits = c(-1.5, 1.5),
+                       breaks = seq(-1.5, 1.5, 0.3),
                        labels = scales::number_format(accuracy = 0.01)) +
     scale_x_discrete(expand = c(-0.8, 1)) +
     ggtitle("\nBias in CLxy (LGCMSR Data) by Dominance Condition and Slope Covariance") +
@@ -384,8 +384,8 @@ plot_list = list(
     geom_line() + 
     geom_point() +
     facet_grid(~slp_cov) +
-    scale_y_continuous(limits = c(-0.6, 0.6),
-                       breaks = seq(-0.6, 0.6, 0.1),
+    scale_y_continuous(limits = c(-1.5, 1.5),
+                       breaks = seq(-1.5, 1.5, 0.3),
                        labels = scales::number_format(accuracy = 0.01)) +
     scale_x_discrete(expand = c(-0.8, 1)) +
     ggtitle("\nBias in CLyx (LGCMSR Data) by Dominance Condition and Slope Covariance") +

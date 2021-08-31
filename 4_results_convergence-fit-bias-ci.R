@@ -47,18 +47,17 @@ lgcmsr_ci = lgcmsr_log %>%
   summarize(Nxy = sum(CLxy_in_ci),
             Nyx = sum(CLyx_in_ci)) #frequency of cases in which CI includes the true parameter
 
-#substantive conclusions re causal dominance - WTF
+#dominance conclusions
 lgcmsr_conc = lgcmsr_log %>%
-  filter(warning == "W: ") %>% #base calculations only on admissible solutions
-  group_by(model) %>%
-  left_join(lgcmsr_data[ , c("CLxy", "ARx", "ARy", "index")], 
+  filter(warning == "W: ") %>%
+  left_join(lgcmsr_data[ , c("CLxy", "index")], 
             by = c("sample" = "index")) %>%
-  mutate(dom_true = ifelse(CLxy.y == 0.08, "non-dominance", "dominance"),
-         dom_est = ifelse(abs(CLxy.x) < abs(CLyx) + 0.02 && abs(CLxy.x) > abs(CLyx) - 0.02, "non-dominance",
-                          ifelse(abs(CLxy.x) >= abs(CLyx) + 0.02, "dominance", "reversed dominance"))) %>%
-  summarise(dom = sum(dom_true == dom_est))
-
-lgcmsr_conc
+  subset(select = c(CLxy.x, CLyx, CLxy.y, model)) %>%
+  mutate(true_dom = ifelse(CLxy.y == 0.08, "non-dominance", "dominance"),
+         diff = CLxy.x-CLyx) %>%
+  group_by(model, true_dom) %>%
+  summarise(m = mean(diff),
+            sd = sd(diff))
 
 #riclpm ----
 
@@ -104,7 +103,17 @@ riclpm_ci = riclpm_log %>%
   summarize(Nxy = sum(CLxy_in_ci),
             Nyx = sum(CLyx_in_ci))
 
-#substantive conclusions re causal dominance - WTF AGAIN
+#dominance conclusions
+riclpm_conc = riclpm_log %>%
+  filter(warning == "W: ") %>%
+  left_join(riclpm_data[ , c("CLxy", "index")], 
+            by = c("sample" = "index")) %>%
+  subset(select = c(CLxy.x, CLyx, CLxy.y, model)) %>%
+  mutate(true_dom = ifelse(CLxy.y == 0.08, "non-dominance", "dominance"),
+         diff = CLxy.x-CLyx) %>%
+  group_by(model, true_dom) %>%
+  summarise(m = mean(diff),
+            sd = sd(diff))
 
 #clpm ----
 
@@ -149,3 +158,15 @@ clpm_ci = clpm_log %>%
          CLyx_in_ci = if((0.08 <= CLyx + 1.96*CLyx.se) && (0.08 >= CLyx - 1.96*CLyx.se)) TRUE else NA) %>%
   summarize(Nxy = sum(CLxy_in_ci),
             Nyx = sum(CLyx_in_ci))
+
+#dominance conclusions
+clpm_conc = clpm_log %>%
+  filter(warning == "W: ") %>%
+  left_join(clpm_data[ , c("CLxy", "index")], 
+            by = c("sample" = "index")) %>%
+  subset(select = c(CLxy.x, CLyx, CLxy.y, model)) %>%
+  mutate(true_dom = ifelse(CLxy.y == 0.08, "non-dominance", "dominance"),
+         diff = CLxy.x-CLyx) %>%
+  group_by(model, true_dom) %>%
+  summarise(m = mean(diff),
+            sd = sd(diff))

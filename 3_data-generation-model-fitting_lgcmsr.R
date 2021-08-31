@@ -28,8 +28,8 @@ lgcmsr_gen = function(SxSy, VSx, VSy, CLxy, ARx, ARy, Niter) {
          3.32,  #slope (x)
          50.35, #intercept (y)
          3.27,  #slope (y)
-         0, 0,   0,  0, #residual means
-         0,  0,  0,  0)
+         0, 0, 0, 0, #residual means
+         0, 0, 0, 0)
   
   #(residuals) correlation matrix
   r = matrix(c(
@@ -83,8 +83,8 @@ lgcmsr_gen = function(SxSy, VSx, VSy, CLxy, ARx, ARy, Niter) {
     mutate(Dx3 = ARx*Dx2 + 0.08*Dy2 + Rx3) %>%
     mutate(Dy3 = ARy*Dy2 + CLxy*Dx2 + Ry3) %>%
     
-    mutate(x3 = Ix + 2.2*Sx+ Dx3) %>%
-    mutate(y3 = Iy + 2.3*Sy +Dy3) %>%
+    mutate(x3 = Ix + 2.2*Sx + Dx3) %>%
+    mutate(y3 = Iy + 2.3*Sy + Dy3) %>%
     
     mutate(Dx4 = ARx*Dx3 + 0.08*Dy3 + Rx4) %>%
     mutate(Dy4 = ARy*Dy3 + CLxy*Dx3 + Ry4) %>%
