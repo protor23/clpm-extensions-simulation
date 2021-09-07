@@ -16,6 +16,8 @@ Scripts should be run in the order in which they are presented, as also indicate
 
 3_data-generation-model-fitting_riclpm.R => generates data from the LGCM-SR and fits all models to it => saves model fitting results (3_log_lgcmsr.csv) and conditions (3_conditions_lgcmsr.csv) in the simualtions file
 
+In all cases, generated data is a dataframe with variable names x1, x2, x3, x4, y1, y2, y3, y4 representing each measurement occasion for each of the two variables.
+
 4_results_convergence-fit-bias-ci => retrieves information about fit indices, effect sizes, and confidence intervals accuracy 
 
 5_graphs_bias-conditions => produces ggplot2 graphs outlining the mean relative bias of parameters across simulation conditions => saves them in the graphs folder (e.g., 1_bias_by-dominance_clpm.pdf)
